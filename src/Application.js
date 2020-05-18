@@ -29,6 +29,13 @@ class App extends Component {
           <Route exact path="/admin/classes" component={Classes} />
           <Route exact path="/admin/classes/add" component={AddClasse} />
           <Route exact path="/admin/eleves" component={Students} />
+          <Route exact path="/admin/cours" component={Courses} />
+          <Route exact path="/admin/cours/add" component={NouveauCours} />
+          <Route exact path="/admin/cours/:id" component={CoursePage} />
+          <Route exact path="/admin/eleves" component={Students} />
+          <Route exact path="/admin/exercices" component={Exercices} />
+          <Route exact path="/admin/exercices/add" component={NouvelExercice} />
+          <Route exact path="/admin/exercices/:id" component={ExercicePage} />
 
           <Route exact path="/enseignants/cours" component={Courses} />
           <Route exact path="/enseignants/cours/add" component={NouveauCours} />
