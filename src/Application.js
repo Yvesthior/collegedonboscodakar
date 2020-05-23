@@ -15,6 +15,8 @@ import CoursesEleves from "./components/student/cours/Courses";
 import ExercicesEleves from "./components/student/exercices/Exercices";
 import CoursePage from "./components/teacher/cours/CoursePage";
 import ExercicePage from "./components/teacher/exercices/ExercicePage";
+import CoursePageEleve from "./components/student/cours/CoursePageEleve";
+import ExercicePageEleve from "./components/student/exercices/ExercicePageEleve";
 // import Acceuil from "./components/student/Acceuil";
 // import withUser from "./components/withUser";
 
@@ -41,19 +43,26 @@ class App extends Component {
           <Route exact path="/enseignants/cours/add" component={NouveauCours} />
           <Route exact path="/enseignants/cours/:id" component={CoursePage} />
           <Route exact path="/enseignants/exercices" component={Exercices} />
-          <Route
-            exact
-            path="/enseignants/exercices/:id"
-            component={ExercicePage}
-          />
+
           <Route
             exact
             path="/enseignants/exercices/add"
             component={NouvelExercice}
           />
+          <Route
+            exact
+            path="/enseignants/exercices/:id"
+            component={ExercicePage}
+          />
 
           <Route exact path="/eleves/cours" component={CoursesEleves} />
           <Route exact path="/eleves/exercices" component={ExercicesEleves} />
+          <Route exact path="/eleves/cours/:id" component={CoursePageEleve} />
+          <Route
+            exact
+            path="/eleves/exercices/:id"
+            component={ExercicePageEleve}
+          />
         </Switch>
       </div>
     );

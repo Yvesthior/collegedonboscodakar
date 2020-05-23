@@ -81,7 +81,7 @@ class NouvelExercice extends Component {
               matiere: "",
               classe: "",
             });
-            this.props.history.push("/enseignants/cours");
+            this.props.history.push("/enseignants/exercices");
           });
       }
     } catch (err) {
@@ -217,7 +217,7 @@ class NouvelExercice extends Component {
               </div>
             </div>
             <button type="submit" className="btn btn-success">
-              Ajouter un Cours
+              Ajouter un Exercice
             </button>
           </form>
         </div>

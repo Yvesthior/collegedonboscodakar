@@ -84,6 +84,7 @@ class CurrentUser extends Component {
   render() {
     const { photoURL, email, nom, prenom, phoneNumber, type } = this.props;
     const nomComplet = `${prenom} ${nom}`;
+    console.log(this.props);
 
     return (
       <React.Fragment>
@@ -166,6 +167,21 @@ class CurrentUser extends Component {
                       required
                     />
                   </div>
+                  {this.props.classeObj ? (
+                    <div className="col-6 form-group">
+                      <label htmlFor="classe">Classe</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        onChange={this.handleChange}
+                        id="classe"
+                        placeholder={this.props.classeObj.nom}
+                        readOnly
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <button type="submit" className="btn btn-primary offset-5">
                   <i className="fas fa-edit"></i> Modifier Mon Profil

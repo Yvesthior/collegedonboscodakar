@@ -28,7 +28,7 @@ export const signOut = () => auth.signOut();
 
 window.firebase = firebase;
 
-export const createUserProfileDocument = async (user) => {
+export const createUserProfileDocument = async (user, data) => {
   if (!user) return;
   // Get a reference to the place in the database where the document might be
   const userRef = firestore.doc(`users/${user.user.uid}`);
@@ -37,19 +37,13 @@ export const createUserProfileDocument = async (user) => {
   const snapshot = await userRef.get();
   if (!snapshot.exists) {
     const { displayName, photoURL } = user.user;
-    const { nom, prenom, email, matiere, type, phoneNumber } = user;
     const createdAt = new Date();
     try {
       await userRef.set({
-        phoneNumber,
         displayName,
         photoURL,
         createdAt,
-        nom,
-        prenom,
-        email,
-        matiere,
-        type,
+        ...data,
       });
     } catch (error) {
       console.error("Error creating user", error.message);

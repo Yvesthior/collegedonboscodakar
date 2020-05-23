@@ -23,32 +23,42 @@ class SignIn extends Component {
 
     return (
       <React.Fragment>
-        <div className="row mt-5">
-          <div className="card col-5 offset-3">
-            <div className="card-header">
-              <h2>Connexion</h2>
-            </div>
-            <div className="card-body text-center">
-              <form className="form" onSubmit={this.handleSubmit}>
+        <div className="card mt-5">
+          <div className="card-header">
+            <h2>Connexion</h2>
+          </div>
+          <div className="card-body">
+            <form className="form" onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
                 <input
                   type="email"
-                  className="form-control col-7"
+                  className="form-control"
                   name="email"
-                  placeholder="Email"
+                  placeholder="Entrez votre adresse e-mail"
                   value={email}
                   onChange={this.handleChange}
                 />
+                <div className="valid-feedback">Looks good!</div>
+                <div className="invalid-feedback">Looks not good!</div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Mot de Passe</label>
                 <input
                   type="password"
-                  className="form-control col-7"
+                  className="form-control"
                   name="password"
                   placeholder="Password"
                   value={password}
                   onChange={this.handleChange}
                 />
-                <input type="submit" value="Connexion" />
-              </form>
-            </div>
+              </div>
+              <div className="col">
+                <button className="btn btn-primary offset-5" type="submit">
+                  Connexion
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </React.Fragment>
