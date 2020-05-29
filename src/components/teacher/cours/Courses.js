@@ -31,46 +31,58 @@ class Courses extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className={this.state.hidden}>
-          <NavbarProfesseur />
+        <div>
+          {this.state.user === null ? (
+            <div>
+              {" "}
+              vous n'éts pas autorisé a acceder a cette page, veuillez vous
+              connecter
+            </div>
+          ) : (
+            <React.Fragment>
+              <NavbarProfesseur />
 
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-1"></div>
-              <div className="col-10">
-                <div className="container-fluid mt-5">
-                  <h2 className="text-center">Liste de Mes Cours</h2>
-                  <div className="row">
-                    <div className="col-4 offset-10">
-                      <Link to="/enseignants/cours/add">
-                        <button className="btn btn-success">
-                          {" "}
-                          <i
-                            className="fa fa-plus-circle"
-                            aria-hidden="true"
-                          ></i>{" "}
-                          Nouveau Cours
-                        </button>
-                      </Link>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-1"></div>
+                  <div className="col-10">
+                    <div className="container-fluid mt-5">
+                      <h2 className="text-center">Liste de Mes Cours</h2>
+                      <div className="row">
+                        <div className="col-4 offset-10">
+                          <Link to="/enseignants/cours/add">
+                            <button className="btn btn-success">
+                              {" "}
+                              <i
+                                className="fa fa-plus-circle"
+                                aria-hidden="true"
+                              ></i>{" "}
+                              Nouveau Cours
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
+                      <div
+                        className="row col-12 mt-3"
+                        style={{
+                          border: "2px solid rgba(28,110,164,0.35)",
+                          borderRadius: 18,
+                        }}
+                      >
+                        {this.state.courses
+                          .filter(
+                            (cours) => cours.user.uid === this.state.user.uid
+                          )
+                          .map((course) => (
+                            <Course cours={course} key={course.id} />
+                          ))}
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    className="row col-12 mt-3"
-                    style={{
-                      border: "2px solid rgba(28,110,164,0.35)",
-                      borderRadius: 18,
-                    }}
-                  >
-                    {this.state.courses
-                      .filter((cours) => cours.user.uid === this.state.user.uid)
-                      .map((course) => (
-                        <Course cours={course} key={course.id} />
-                      ))}
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </React.Fragment>
+          )}
         </div>
       </React.Fragment>
     );

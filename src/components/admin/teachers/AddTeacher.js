@@ -40,8 +40,8 @@ export default class AddTeacher extends Component {
         email,
         password
       );
-      const newUser = { ...teacher, ...teacherProfil };
-      createUserProfileDocument(newUser);
+      const newUser = { ...teacher };
+      createUserProfileDocument(newUser, teacherProfil);
 
       console.log(newUser);
     } catch (error) {

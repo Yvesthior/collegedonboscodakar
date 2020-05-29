@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import Teachers from "./components/admin/teachers/Teachers";
 import AddTeacher from "./components/admin/teachers/AddTeacher";
 import Classes from "./components/admin/classes/Classes";
@@ -17,8 +17,7 @@ import CoursePage from "./components/teacher/cours/CoursePage";
 import ExercicePage from "./components/teacher/exercices/ExercicePage";
 import CoursePageEleve from "./components/student/cours/CoursePageEleve";
 import ExercicePageEleve from "./components/student/exercices/ExercicePageEleve";
-// import Acceuil from "./components/student/Acceuil";
-// import withUser from "./components/withUser";
+import PrivateRoute from "./components/PrivateRoute";
 
 class App extends Component {
   render() {
@@ -26,42 +25,93 @@ class App extends Component {
       <div className="">
         <Switch>
           <Route exact path="/" component={Authentication} />
-          <Route exact path="/admin/enseignants" component={Teachers} />
-          <Route exact path="/admin/enseignants/add" component={AddTeacher} />
-          <Route exact path="/admin/classes" component={Classes} />
-          <Route exact path="/admin/classes/add" component={AddClasse} />
-          <Route exact path="/admin/eleves" component={Students} />
-          <Route exact path="/admin/cours" component={Courses} />
-          <Route exact path="/admin/cours/add" component={NouveauCours} />
-          <Route exact path="/admin/cours/:id" component={CoursePage} />
-          <Route exact path="/admin/eleves" component={Students} />
-          <Route exact path="/admin/exercices" component={Exercices} />
-          <Route exact path="/admin/exercices/add" component={NouvelExercice} />
-          <Route exact path="/admin/exercices/:id" component={ExercicePage} />
+          <PrivateRoute exact path="/admin/enseignants" component={Teachers} />
+          <PrivateRoute
+            exact
+            path="/admin/enseignants/add"
+            component={AddTeacher}
+          />
+          <PrivateRoute exact path="/admin/classes" component={Classes} />
+          <PrivateRoute exact path="/admin/classes/add" component={AddClasse} />
+          <PrivateRoute exact path="/admin/eleves" component={Students} />
+          <PrivateRoute exact path="/admin/cours" component={Courses} />
+          <PrivateRoute
+            exact
+            path="/admin/cours/add"
+            component={NouveauCours}
+          />
+          <PrivateRoute exact path="/admin/cours/:id" component={CoursePage} />
+          <PrivateRoute exact path="/admin/eleves" component={Students} />
+          <PrivateRoute exact path="/admin/exercices" component={Exercices} />
+          <PrivateRoute
+            exact
+            path="/admin/exercices/add"
+            component={NouvelExercice}
+          />
+          <PrivateRoute
+            exact
+            path="/admin/exercices/:id"
+            component={ExercicePage}
+          />
 
-          <Route exact path="/enseignants/cours" component={Courses} />
-          <Route exact path="/enseignants/cours/add" component={NouveauCours} />
-          <Route exact path="/enseignants/cours/:id" component={CoursePage} />
-          <Route exact path="/enseignants/exercices" component={Exercices} />
+          {/* <Route exact path="/enseignants/cours" component={Courses} /> */}
+          <PrivateRoute path="/enseignants/cours" component={Courses} />
 
-          <Route
+          <PrivateRoute
+            exact
+            path="/enseignants/cours/add"
+            component={NouveauCours}
+          />
+          <PrivateRoute
+            exact
+            path="/enseignants/cours/:id"
+            component={CoursePage}
+          />
+          <PrivateRoute
+            exact
+            path="/enseignants/exercices"
+            component={Exercices}
+          />
+
+          <PrivateRoute
             exact
             path="/enseignants/exercices/add"
             component={NouvelExercice}
           />
-          <Route
+          <PrivateRoute
             exact
             path="/enseignants/exercices/:id"
             component={ExercicePage}
           />
 
-          <Route exact path="/eleves/cours" component={CoursesEleves} />
-          <Route exact path="/eleves/exercices" component={ExercicesEleves} />
-          <Route exact path="/eleves/cours/:id" component={CoursePageEleve} />
-          <Route
+          <PrivateRoute exact path="/eleves/cours" component={CoursesEleves} />
+          <PrivateRoute
+            exact
+            path="/eleves/exercices"
+            component={ExercicesEleves}
+          />
+          <PrivateRoute
+            exact
+            path="/eleves/cours/:id"
+            component={CoursePageEleve}
+          />
+          <PrivateRoute
             exact
             path="/eleves/exercices/:id"
             component={ExercicePageEleve}
+          />
+          <Route
+            render={() => (
+              <div>
+                <h1> Oups la page que tu cherches semble ne pas exister</h1>
+                <Link to="/">
+                  <button className="btn btn-primary btn-lg">
+                    <i className="fa fa-home" aria-hidden="true"></i> Revenir à
+                    l'acceuil
+                  </button>
+                </Link>
+              </div>
+            )}
           />
         </Switch>
       </div>
