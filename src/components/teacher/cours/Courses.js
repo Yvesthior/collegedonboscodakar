@@ -1,27 +1,38 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import NavbarProfesseur from "../NavbarProfesseur";
+import Loading from "../../loading/Loading";
 import Course from "./Course";
-import { auth, firestore } from "../../../firebase";
+import { firestore } from "../../../firebase";
 import { collectIdsAndDocs } from "../../../utilities";
 
 class Courses extends Component {
-  state = { classes: [], courses: [], user: [] };
+  state = {
+    classes: [],
+    courses: [],
+    user: [],
+    loading: true,
+    displayName: "",
+  };
 
   unsubscribeFromCourses = null;
-  componentWillMount() {
-    setTimeout(() => {
-      const user = auth.currentUser;
-      this.setState({ user });
-    }, 1000);
-  }
+
   componentDidMount() {
-    this.unsubscribeFromCourses = firestore
-      .collection("cours")
-      .onSnapshot((snapshot) => {
-        const courses = snapshot.docs.map(collectIdsAndDocs);
-        this.setState({ courses });
-      });
+    const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
+    const displayName = `${nom.toLowerCase()}-${prenom
+      .replace(" ", "-")
+      .toLowerCase()}`;
+    setTimeout(() => {
+      const user = localStorage.getItem("uid");
+      this.setState({ user });
+
+      this.unsubscribeFromCourses = firestore
+        .collection("cours")
+        .onSnapshot((snapshot) => {
+          const courses = snapshot.docs.map(collectIdsAndDocs);
+          this.setState({ courses, loading: false, displayName });
+        });
+    }, 2000);
   }
 
   componentWillUnmount() {
@@ -32,16 +43,12 @@ class Courses extends Component {
     return (
       <React.Fragment>
         <div>
-          {this.state.user === null ? (
-            <div>
-              {" "}
-              vous n'éts pas autorisé a acceder a cette page, veuillez vous
-              connecter
-            </div>
-          ) : (
-            <React.Fragment>
-              <NavbarProfesseur />
+          <React.Fragment>
+            <NavbarProfesseur />
 
+            {this.state.loading ? (
+              <Loading />
+            ) : (
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-1"></div>
@@ -50,7 +57,9 @@ class Courses extends Component {
                       <h2 className="text-center">Liste de Mes Cours</h2>
                       <div className="row">
                         <div className="col-4 offset-10">
-                          <Link to="/enseignants/cours/add">
+                          <Link
+                            to={`/enseignants/${this.state.displayName}/cours/add`}
+                          >
                             <button className="btn btn-success">
                               {" "}
                               <i
@@ -69,20 +78,26 @@ class Courses extends Component {
                           borderRadius: 18,
                         }}
                       >
-                        {this.state.courses
-                          .filter(
-                            (cours) => cours.user.uid === this.state.user.uid
-                          )
-                          .map((course) => (
-                            <Course cours={course} key={course.id} />
-                          ))}
+                        {this.state.courses === null ? (
+                          <div>
+                            <h3>Vous n'avez encore enregistré aucun Cours</h3>
+                          </div>
+                        ) : (
+                          this.state.courses
+                            .filter(
+                              (cours) => cours.user.uid === this.state.user
+                            )
+                            .map((course) => (
+                              <Course cours={course} key={course.id} />
+                            ))
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </React.Fragment>
-          )}
+            )}
+          </React.Fragment>
         </div>
       </React.Fragment>
     );

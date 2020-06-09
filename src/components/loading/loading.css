@@ -1,0 +1,105 @@
+/* .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.container .loading-bar {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: inset 0px 0px 0px 1px #c8c8cd;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+@keyframes progress-animation {
+    0% {
+        width: 0%;
+    }
+
+    20% {
+        width: 10%;
+    }
+
+    40% {
+        width: 30%;
+    }
+
+    50% {
+        width: 60%;
+    }
+
+    100% {
+        width: 90%;
+    }
+}
+
+.container .loading-bar .progress-bar {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background: #409be9;
+    animation: progress-animation 2s ease-in-out;
+} */
+
+body {
+    background: #eaecfa;
+}
+
+.loader {
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: helvetica, arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #ce4233;
+    letter-spacing: 0.2em;
+}
+
+.loader::before,
+.loader::after {
+    content: "";
+    display: block;
+    width: 150px;
+    height: 150px;
+    background: #ce4233;
+    position: absolute;
+    animation: load 0.7s infinite alternate ease-in-out;
+}
+
+.loader::before {
+    top: 0;
+}
+
+.loader::after {
+    bottom: 0;
+}
+
+@keyframes load {
+    0% {
+        left: 0;
+        height: 30px;
+        width: 15px;
+    }
+
+    50% {
+        height: 8px;
+        width: 40px;
+    }
+
+    100% {
+        left: 235px;
+        height: 30px;
+        width: 15px;
+    }
+}

@@ -8,6 +8,7 @@ import NavbarEleve from "../NavbarEleve";
 class ExercicePage extends Component {
   state = {
     exercice: [],
+    displayName: "",
   };
 
   imageInput = null;
@@ -21,6 +22,14 @@ class ExercicePage extends Component {
   }
 
   unsubscribeFromExercice = null;
+
+  componentDidMount() {
+    const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
+    const displayName = `${nom.toLowerCase()}-${prenom
+      .replace(" ", "-")
+      .toLowerCase()}`;
+    this.setState({ displayName });
+  }
 
   componentWillMount = async () => {
     this.unsubscribeFromExercice = this.exerciceRef.onSnapshot((snapshot) => {
@@ -45,7 +54,7 @@ class ExercicePage extends Component {
         <div className="container mt-5">
           <div className="row">
             <div className="col-md-4">
-              <Link to="/eleves/cours">
+              <Link to={`/eleves/${this.state.displayName}/cours`}>
                 {" "}
                 <button className="btn btn-lg btn-outline-secondary">
                   {" "}

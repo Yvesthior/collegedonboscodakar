@@ -3,6 +3,7 @@ import NavbarEleve from "../NavbarEleve";
 import Exercice from "./Exercice";
 import withData from "../../withData";
 import { auth, firestore } from "../../../firebase";
+import Loading from "../../loading/Loading";
 
 class ExercicesEleves extends Component {
   state = { classes: [], exercices: [], loading: true, user: [] };
@@ -28,22 +29,21 @@ class ExercicesEleves extends Component {
   }
 
   render() {
-    console.log(this.state.exercices);
     return (
       <React.Fragment>
         <NavbarEleve />
 
         {this.state.loading ? (
-          <h1>Chargement des Données en Cours</h1>
+          <Loading />
         ) : (
           <div className="container-fluid">
             <div className="row">
               <div className="col-1"></div>
               <div className="col-10">
                 <div className="container-fluid mt-5">
-                  <h2 className="text-center">Liste de Mes Exercices</h2>
+                  <h2 className="text-left">Liste de Mes Exercices</h2>
                   <div
-                    className="row col-12 mt-3"
+                    className="row col-12 mt-3 card-layout"
                     style={{
                       border: "2px solid rgba(28,110,164,0.35)",
                       borderRadius: 18,

@@ -2,12 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Exercice({ exercice }) {
+  const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
+  const displayName = `${nom.toLowerCase()}-${prenom
+    .replace(" ", "-")
+    .toLowerCase()}`;
   return (
     <React.Fragment>
       <div className="col-3 m-2 p-3">
         <div className="card">
           <div className="card-header">
-            <Link to={`/enseignants/exercices/${exercice.id}`}>
+            <Link to={`/enseignants/${displayName}/exercices/${exercice.id}`}>
               {" "}
               {exercice.matiere.nom} : {exercice.nom}{" "}
             </Link>

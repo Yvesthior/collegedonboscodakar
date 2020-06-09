@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="navbar  navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="todo">
+      <Link className="navbar-brand" to="/">
         COLLEGE SAINT JEAN BOSCO
-      </a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"

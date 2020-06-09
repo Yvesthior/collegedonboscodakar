@@ -1,20 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Navbar";
 import Classe from "./classe";
-import { DataContext } from "../../../providers/DataProvider";
+// import { DataContext } from "../../../providers/DataProvider";
 
 const Classes = () => {
-  const { classes } = useContext(DataContext);
-
+  // const { classes } = useContext(DataContext);
+  const classes = JSON.parse(localStorage.getItem("classes"));
+  console.log(JSON.parse(localStorage.getItem("classes")));
   return (
     <React.Fragment>
       <Navbar />
 
       <ClassWrapper>
-        <div className="container mt-4 ">
+        <div className="container mt-0 ">
           <div className="row">
             <div className="col-12 pb-5">
               <h2>Liste des Classes</h2>

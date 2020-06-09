@@ -54,50 +54,58 @@ class App extends Component {
             component={ExercicePage}
           />
 
-          {/* <Route exact path="/enseignants/cours" component={Courses} /> */}
-          <PrivateRoute path="/enseignants/cours" component={Courses} />
+          {/* <PrivateRoute exact path="/enseignants/cours" component={Courses} /> */}
+          <PrivateRoute
+            exact
+            path="/enseignants/:nom/cours"
+            component={Courses}
+          />
 
           <PrivateRoute
             exact
-            path="/enseignants/cours/add"
+            path="/enseignants/:nom/cours/add"
             component={NouveauCours}
           />
           <PrivateRoute
             exact
-            path="/enseignants/cours/:id"
+            path="/enseignants/:nom/cours/:id"
             component={CoursePage}
           />
           <PrivateRoute
             exact
-            path="/enseignants/exercices"
+            path="/enseignants/:nom/exercices"
             component={Exercices}
           />
 
           <PrivateRoute
             exact
-            path="/enseignants/exercices/add"
+            path="/enseignants/:nom/exercices/add"
             component={NouvelExercice}
           />
           <PrivateRoute
             exact
-            path="/enseignants/exercices/:id"
+            path="/enseignants/:nom/exercices/:id"
             component={ExercicePage}
           />
 
-          <PrivateRoute exact path="/eleves/cours" component={CoursesEleves} />
           <PrivateRoute
             exact
-            path="/eleves/exercices"
+            path="/eleves/:nom/cours"
+            component={CoursesEleves}
+          />
+          <PrivateRoute
+            exact
+            path="/eleves/:nom/exercices"
             component={ExercicesEleves}
           />
           <PrivateRoute
             exact
-            path="/eleves/cours/:id"
+            path="/eleves/:nom/cours/:id"
             component={CoursePageEleve}
           />
           <PrivateRoute
             exact
-            path="/eleves/exercices/:id"
+            path="/eleves/:nom/exercices/:id"
             component={ExercicePageEleve}
           />
           <Route

@@ -3,6 +3,7 @@ import NavbarEleve from "../NavbarEleve";
 import Course from "./Course";
 import withData from "../../withData";
 import { auth, firestore } from "../../../firebase";
+import Loading from "../../loading/Loading";
 
 class CoursesEleves extends Component {
   state = { classes: [], courses: [], loading: true, user: [] };
@@ -28,16 +29,16 @@ class CoursesEleves extends Component {
         <NavbarEleve />
 
         {this.state.loading === true ? (
-          <h1>Chargement des données en Cours</h1>
+          <Loading />
         ) : (
           <div className="container-fluid">
             <div className="row">
               <div className="col-1"></div>
               <div className="col-10">
                 <div className="container-fluid mt-5">
-                  <h2 className="text-center">Liste de Mes Cours</h2>
+                  <h2 className="text-left">Liste de Mes Cours</h2>
                   <div
-                    className="row col-12 mt-3"
+                    className="row col-12 mt-3 card-layout"
                     style={{
                       border: "2px solid rgba(28,110,164,0.35)",
                       borderRadius: 18,

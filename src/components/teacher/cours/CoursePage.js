@@ -15,6 +15,7 @@ class CoursePage extends Component {
     classe: "",
     docurl: "",
     course: [],
+    displayName: "",
   };
 
   imageInput = null;
@@ -35,6 +36,13 @@ class CoursePage extends Component {
       this.setState({ course });
     });
   };
+  componentDidMount() {
+    const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
+    const displayName = `${nom.toLowerCase()}-${prenom
+      .replace(" ", "-")
+      .toLowerCase()}`;
+    this.setState({ displayName });
+  }
 
   componentWillUnmount() {
     this.unsubscribeFromCourse();
@@ -51,7 +59,7 @@ class CoursePage extends Component {
 
   handleDelete = () => {
     this.courseRef.delete();
-    this.props.history.push("/enseignants/cours");
+    this.props.history.push(`/enseignants/${this.state.displayname}/cours`);
   };
 
   handleSubmit = async (event) => {
@@ -95,7 +103,9 @@ class CoursePage extends Component {
 
             this.courseRef.update(cours);
 
-            this.props.history.push("/enseignants/cours");
+            this.props.history.push(
+              `/enseignants/${this.state.displayName}/cours`
+            );
           });
       }
     } catch (err) {
@@ -112,7 +122,7 @@ class CoursePage extends Component {
         <div className="container mt-5">
           <div className="row">
             <div className="col-md-4">
-              <Link to="/enseignants/cours">
+              <Link to={`/enseignants/${this.state.displayName}/cours`}>
                 {" "}
                 <button className="btn btn-lg btn-outline-secondary">
                   {" "}

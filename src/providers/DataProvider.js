@@ -26,12 +26,18 @@ class DataProvider extends Component {
       .onSnapshot((snapshot) => {
         const classes = snapshot.docs.map(collectIdsAndDocs);
         this.setState({ classes });
+        // const classesdata = [];
+        // classes.forEach((classe) => classesdata.push(classe));
+        localStorage.setItem("classes", JSON.stringify(classes));
+
+        // localStorage.removeItem("classes");
       });
     this.unsubscribeFromCourses = firestore
       .collection("cours")
       .onSnapshot((snapshot) => {
         const courses = snapshot.docs.map(collectIdsAndDocs);
         this.setState({ courses });
+        localStorage.setItem("cours", courses);
       });
     this.unsubscribeFromExercices = firestore
       .collection("exercices")

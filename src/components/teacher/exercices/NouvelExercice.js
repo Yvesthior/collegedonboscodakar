@@ -89,17 +89,30 @@ class NouvelExercice extends Component {
     }
     // this.userRef.update({ photoURL })
   };
-  componentDidMount() {}
+  componentDidMount() {
+    const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
+    const displayName = `${nom.toLowerCase()}-${prenom
+      .replace(" ", "-")
+      .toLowerCase()}`;
+    this.setState({ displayName });
+  }
 
   render() {
-    const { nom, description, instructions, matiere, classe } = this.state;
+    const {
+      nom,
+      description,
+      instructions,
+      matiere,
+      classe,
+      displayName,
+    } = this.state;
     return (
       <React.Fragment>
         <NavbarProfesseur />
-        <div className="container mt-5">
+        <div className="container-fluid mt-5">
           <div className="row">
             <div className="col-md-4">
-              <Link to="/enseignants/exercices">
+              <Link to={`/enseignants/${displayName}/exercices`}>
                 {" "}
                 <button className="btn btn-outline-secondary btn-lg">
                   {" "}
@@ -112,7 +125,7 @@ class NouvelExercice extends Component {
             </div>
           </div>
         </div>
-        <div className="container mt-5">
+        <div className="container-fluid mt-5">
           <form className="card p-5" onSubmit={this.handleSubmit}>
             <div className="form-row">
               <div className="form-group col-md-6">

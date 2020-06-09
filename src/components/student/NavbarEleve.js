@@ -3,11 +3,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const NavbarEleve = () => {
+  const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
+  const displayName = `${nom.toLowerCase()}-${prenom
+    .replace(" ", "-")
+    .toLowerCase()}`;
   return (
     <nav className="navbar  navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="todo">
+      <Link className="navbar-brand" to="/">
         COLLEGE SAINT JEAN BOSCO DAKAR
-      </a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -29,12 +33,12 @@ const NavbarEleve = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/eleves/cours">
+            <Link className="nav-link" to={`/eleves/${displayName}/cours`}>
               <i className="fas fa-chalkboard" aria-hidden="true"></i> Mes Cours
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/eleves/exercices">
+            <Link className="nav-link" to={`/eleves/${displayName}/exercices`}>
               <i className="fa fa-users" aria-hidden="true"></i> Mes Exercices
             </Link>
           </li>

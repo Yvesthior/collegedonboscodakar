@@ -7,6 +7,7 @@ import NavbarEleve from "../NavbarEleve";
 class CoursePageEleve extends Component {
   state = {
     course: [],
+    displayName: "",
   };
 
   imageInput = null;
@@ -20,6 +21,13 @@ class CoursePageEleve extends Component {
   }
 
   unsubscribeFromCourse = null;
+  componentDidMount() {
+    const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
+    const displayName = `${nom.toLowerCase()}-${prenom
+      .replace(" ", "-")
+      .toLowerCase()}`;
+    this.setState({ displayName });
+  }
 
   componentWillMount = async () => {
     this.unsubscribeFromCourse = this.courseRef.onSnapshot((snapshot) => {
@@ -34,15 +42,13 @@ class CoursePageEleve extends Component {
 
   render() {
     const { course } = this.state;
-    console.log(this.props);
-    console.log(course.classe);
     return (
       <React.Fragment>
         <NavbarEleve />
         <div className="container mt-5">
           <div className="row">
             <div className="col-md-4">
-              <Link to="/eleves/cours">
+              <Link to={`/eleves/${this.state.displayName}/cours`}>
                 {" "}
                 <button className="btn btn-lg btn-outline-secondary">
                   {" "}

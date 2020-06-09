@@ -1,9 +1,9 @@
 import React from "react";
-import { auth } from "../firebase";
+// import { auth } from "../firebase";
 import { Redirect, Route } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isLoggedIn = auth.currentUser;
+  const isLoggedIn = localStorage.getItem("uid");
   return (
     <Route
       {...rest}
