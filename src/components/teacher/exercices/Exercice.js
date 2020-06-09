@@ -2,10 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Exercice({ exercice }) {
-  const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
-  const displayName = `${nom.toLowerCase()}-${prenom
-    .replace(" ", "-")
-    .toLowerCase()}`;
+  const displayName = localStorage.getItem("displayName");
   return (
     <React.Fragment>
       <div className="col-3 m-2 p-3">

@@ -37,10 +37,7 @@ class CoursePage extends Component {
     });
   };
   componentDidMount() {
-    const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
-    const displayName = `${nom.toLowerCase()}-${prenom
-      .replace(" ", "-")
-      .toLowerCase()}`;
+    const displayName = localStorage.getItem("displayName");
     this.setState({ displayName });
   }
 

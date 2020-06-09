@@ -3,11 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const NavbarProfesseur = () => {
-  const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
-  const displayName = `${nom.toLowerCase()}-${prenom
-    .replace(" ", "-")
-    .toLowerCase()}`;
-
+  const displayName = localStorage.getItem("displayName");
   return (
     <nav className="navbar  navbar-expand-lg navbar-dark bg-primary">
       <Link className="navbar-brand" to="/">

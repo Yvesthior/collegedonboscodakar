@@ -18,10 +18,7 @@ class Courses extends Component {
   unsubscribeFromCourses = null;
 
   componentDidMount() {
-    const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
-    const displayName = `${nom.toLowerCase()}-${prenom
-      .replace(" ", "-")
-      .toLowerCase()}`;
+    const displayName = localStorage.getItem("displayName");
     setTimeout(() => {
       const user = localStorage.getItem("uid");
       this.setState({ user });

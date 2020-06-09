@@ -24,6 +24,11 @@ class CurrentUser extends Component {
   componentDidMount = async () => {
     const data = await (await this.userRef.get()).data();
     localStorage.setItem("user", JSON.stringify(data));
+    const { nom, prenom } = JSON.parse(localStorage.getItem("user"));
+    const displayName = `${nom.toLowerCase()}-${prenom
+      .replace(" ", "-")
+      .toLowerCase()}`;
+    localStorage.setItem("displayName", displayName);
   };
 
   imageInput = null;
@@ -77,6 +82,10 @@ class CurrentUser extends Component {
     } catch (err) {
       console.error(err);
     }
+  };
+  signout = () => {
+    signOut();
+    localStorage.clear();
   };
 
   HandleEditProfile = (event) => {
@@ -310,7 +319,7 @@ class CurrentUser extends Component {
             >
               <button
                 className="btn btn-danger offset-xl-9 offset-lg-8 offset-md-8 offset-sm-8"
-                onClick={signOut}
+                onClick={this.signout}
               >
                 <i className="fas fa-door-open"></i> Me déconnecter
               </button>

@@ -8,7 +8,7 @@ const Authentication = ({ loading }) => {
   const user = useContext(UserContext);
 
   if (loading) return null;
-
+  console.log(localStorage);
   return (
     <div>
       {user ? (
