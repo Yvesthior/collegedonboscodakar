@@ -1,31 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
 import { firestore } from "../../../firebase";
-
-const Teacher = ({ id, email, phoneNumber, matiere, nom, prenom }) => {
-  const userRef = firestore.doc(`users/${id}`);
-  const remove = () => userRef.delete();
-
+import axios from "axios";
+export default function Student(student) {
+  const displayName = localStorage.getItem("displayName");
+  const { id, age, nom, prenom, classename } = student.student;
+  const studentRef = firestore.doc(`users/${id}`);
+  const remove = () => studentRef.delete();
   return (
     <tr>
-      <td>{nom}</td>
-      <td>{prenom}</td>
-      <td>{phoneNumber}</td>
-      <td>{matiere}</td>
-      <td>{email}</td>
-      <td>
-        {/* <Link to={`/admin/enseignant/${id}/edit`}>
-          <button className="btn btn-secondary">
-            {" "}
-            <i className="fas fa-edit"></i> Modifier
-          </button>
-        </Link>{" "}
-        <button className="btn btn-danger" onClick={remove}>
-          <i className="fa fa-trash" aria-hidden="true"></i> Supprimer
-        </button> */}
-
+      <td style={{ width: "5%" }}>{nom}</td>
+      <td style={{ width: "30%" }}>{prenom}</td>
+      <td style={{ width: "10%" }}>{classename}</td>
+      <td style={{ width: "10%" }}>{age}</td>
+      <td style={{ width: "40%" }}>
         <button
           className="btn btn-outline-secondary dropdown-toggle"
           type="button"
@@ -36,7 +24,7 @@ const Teacher = ({ id, email, phoneNumber, matiere, nom, prenom }) => {
           <i className="fas fa-cog"></i> Options
         </button>
         <div className="dropdown-menu">
-          <Link to={`/admin/enseignant/${id}/edit`}>
+          <Link to={`/admin/${displayName}/eleves/${id}/edit`}>
             <button className="btn btn-secondary dropdown-item">
               <i className="fas fa-edit"></i> Modifier le Profil
             </button>{" "}
@@ -62,6 +50,14 @@ const Teacher = ({ id, email, phoneNumber, matiere, nom, prenom }) => {
       </td>
     </tr>
   );
-};
+}
 
-export default Teacher;
+// <Link to={`/admin/${displayName}/eleves/${id}/edit`}>
+//           <button className="btn btn-secondary">
+//             {" "}
+//             <i className="fas fa-edit"></i> Modifier Mdp
+//           </button>
+//         </Link>{" "}
+//         <button className="btn btn-danger">
+//           <i className="fa fa-trash" aria-hidden="true"></i> Supprimer
+//         </button>

@@ -9,7 +9,6 @@ import Classe from "./classe";
 const Classes = () => {
   // const { classes } = useContext(DataContext);
   const classes = JSON.parse(localStorage.getItem("classes"));
-  console.log(JSON.parse(localStorage.getItem("classes")));
   return (
     <React.Fragment>
       <Navbar />

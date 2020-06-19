@@ -37,7 +37,6 @@ class DataProvider extends Component {
       .onSnapshot((snapshot) => {
         const courses = snapshot.docs.map(collectIdsAndDocs);
         this.setState({ courses });
-        localStorage.setItem("cours", courses);
       });
     this.unsubscribeFromExercices = firestore
       .collection("exercices")
@@ -57,6 +56,10 @@ class DataProvider extends Component {
       .onSnapshot((snapshot) => {
         const users = snapshot.docs.map(collectIdsAndDocs);
         this.setState({ users });
+        localStorage.setItem(
+          "students",
+          JSON.stringify(users.filter((user) => user.type === "eleve"))
+        );
       });
   };
 

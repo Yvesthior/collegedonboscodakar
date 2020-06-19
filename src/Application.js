@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Switch, Route, Link } from "react-router-dom";
 import Teachers from "./components/admin/teachers/Teachers";
 import AddTeacher from "./components/admin/teachers/AddTeacher";
+import EditTeacher from "./components/admin/teachers/EditTeacher";
 import Classes from "./components/admin/classes/Classes";
 import AddClasse from "./components/admin/classes/AddClasse";
 import Students from "./components/admin/students/Students";
@@ -17,7 +18,9 @@ import CoursePage from "./components/teacher/cours/CoursePage";
 import ExercicePage from "./components/teacher/exercices/ExercicePage";
 import CoursePageEleve from "./components/student/cours/CoursePageEleve";
 import ExercicePageEleve from "./components/student/exercices/ExercicePageEleve";
+import EditStudent from "./components/admin/students/EditStudent";
 import PrivateRoute from "./components/PrivateRoute";
+import NewStudent from "./components/admin/students/NewStudent";
 
 class App extends Component {
   render() {
@@ -31,9 +34,24 @@ class App extends Component {
             path="/admin/enseignants/add"
             component={AddTeacher}
           />
+          <PrivateRoute
+            exact
+            path="/admin/enseignant/:id/edit"
+            component={EditTeacher}
+          />
           <PrivateRoute exact path="/admin/classes" component={Classes} />
           <PrivateRoute exact path="/admin/classes/add" component={AddClasse} />
           <PrivateRoute exact path="/admin/eleves" component={Students} />
+          <PrivateRoute
+            exact
+            path="/admin/eleves/nouveauprofil"
+            component={NewStudent}
+          />
+          <PrivateRoute
+            exact
+            path="/admin/:nom/eleves/:id/edit"
+            component={EditStudent}
+          />
           <PrivateRoute exact path="/admin/cours" component={Courses} />
           <PrivateRoute
             exact

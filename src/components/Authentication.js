@@ -8,7 +8,6 @@ const Authentication = ({ loading }) => {
   const user = useContext(UserContext);
 
   if (loading) return null;
-  console.log(localStorage);
   return (
     <div>
       {user ? (
@@ -19,21 +18,12 @@ const Authentication = ({ loading }) => {
             <div className="mt-3">
               <h1 className="text-center">Collège Saint Jean Bosco de Dakar</h1>
             </div>
-            {/* <div className="row mt-5">
-              <div className="col-md-4">
-                <SignIn />
-              </div>
-              <div className="col-md-6 offset-1">
-                <SignUp />
-              </div>
-            </div> */}
-
             <div className="row">
               <div className="col-md-6 offset-md-3">
                 <SignIn />
               </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
               <div>
                 <p>
                   Vous pouvez retrouver le guide complet de la plateforme à
@@ -47,7 +37,7 @@ const Authentication = ({ loading }) => {
                   </a>
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </React.Fragment>
       )}
