@@ -5,12 +5,19 @@ import Teacher from "./teacher";
 
 import { DataContext } from "../../../providers/DataProvider";
 import Navbar from "../Navbar";
-// import { UserContext } from "../../../providers/UserProvider";
+import { useState } from "react";
 
 const Teachers = () => {
   const { teachers } = useContext(DataContext);
-  // const user = useContext(UserContext);
-  // console.log(user);
+  const [word, setWord] = useState("");
+
+  const handleChange = (e) => setWord(e.target.value);
+
+  const filteredTeachers = teachers.filter(
+    (teacher) =>
+      teacher.nom.toLowerCase().includes(word.toLowerCase()) ||
+      teacher.prenom.toLowerCase().includes(word.toLowerCase())
+  );
   return (
     <React.Fragment>
       <Navbar />
@@ -19,6 +26,20 @@ const Teachers = () => {
           <div className="row">
             <div className="col-12 pb-5">
               <h2>Liste des Enseignants</h2>
+            </div>
+          </div>
+        </div>
+        <div className="container">
+          <div className="col-12">
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                name="search"
+                id="search"
+                placeholder="Rechercher un enseignant"
+                onChange={handleChange}
+              />
             </div>
           </div>
         </div>
@@ -44,7 +65,7 @@ const Teachers = () => {
               </tr>
             </thead>
             <tbody>
-              {teachers.map((teacher) => (
+              {filteredTeachers.map((teacher) => (
                 <Teacher {...teacher} key={teacher.id} />
               ))}
             </tbody>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Navbar";
@@ -8,9 +8,19 @@ import { DataContext } from "../../../providers/DataProvider";
 const Students = () => {
   // console.log(JSON.parse(localStorage.getItem("students")));
   // const students = JSON.parse(localStorage.getItem("students"));
-  const { students } = useContext(DataContext);
-
   // console.log(JSON.parse(localStorage.getItem("students")));
+
+  const { students } = useContext(DataContext);
+  const [word, setWord] = useState("");
+  const handleSearch = (e) => {
+    setWord(e.target.value);
+  };
+
+  const filteredStudents = students.filter(
+    (student) =>
+      student.nom.toLowerCase().includes(word.toLowerCase()) ||
+      student.prenom.toLowerCase().includes(word.toLowerCase())
+  );
 
   return (
     <React.Fragment>
@@ -20,6 +30,20 @@ const Students = () => {
           <div className="row">
             <div className="col-12 pb-5">
               <h2>Liste des Élèves</h2>
+            </div>
+          </div>
+        </div>
+        <div className="container">
+          <div className="col-12">
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                name="search"
+                id="search"
+                placeholder="Rechercher un élève"
+                onChange={handleSearch}
+              />
             </div>
           </div>
         </div>
@@ -45,7 +69,7 @@ const Students = () => {
                 </tr>
               </thead>
               <tbody>
-                {students.map((student) => (
+                {filteredStudents.map((student) => (
                   <Student student={student} key={student.id} />
                 ))}
               </tbody>
