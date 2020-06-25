@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { signInWithEmail } from "../firebase";
 
 class SignIn extends Component {
-  state = { email: "", password: "" };
+  state = { email: "", password: "", userError: "", passwordError: "" };
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -12,10 +12,24 @@ class SignIn extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = this.state;
-    signInWithEmail(email, password).then((user) => user);
+    const mailerror = document.getElementById("mailerror");
+    const passworderror = document.getElementById("passworderror");
+    const { email, password, passwordError } = this.state;
+    signInWithEmail(email, password)
+      .then((user) => user)
+      .catch((error) => {
+        if (error.code === "auth/user-not-found") {
+          this.setState({ userError: "Adresse e-mail Invalide" });
+          console.log(this.state.userError, email);
+          mailerror.style.display = "block";
+        } else if (error.code === "auth/wrong-password") {
+          this.setState({ passwordError: "Mot de Passe Invalide" });
+          console.log(passwordError, password);
+          passworderror.style.display = "block";
+        }
+      });
 
-    this.setState({ email: "", password: "" });
+    // this.setState({ email: "", password: "" });
   };
 
   togglePassword = () => {
@@ -43,7 +57,7 @@ class SignIn extends Component {
             </h2>
           </div>
           <div className="card-body">
-            <form className="form" onSubmit={this.handleSubmit}>
+            <form className="form" noValidate onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="email">
                   {" "}
@@ -63,8 +77,15 @@ class SignIn extends Component {
                   onChange={this.handleChange}
                   required
                 />
-                <div className="valid-feedback">Looks good!</div>
-                <div className="invalid-feedback">Looks not good!</div>
+              </div>
+              <div
+                className="alert alert-danger"
+                style={{ display: "none" }}
+                id="mailerror"
+                role="alert"
+              >
+                <i className="fa fa-times" aria-hidden="true"></i> Adresse Email
+                Non Valide
               </div>
               <div className="form-group">
                 <img
@@ -86,6 +107,15 @@ class SignIn extends Component {
                 <div>
                   <input type="checkbox" onClick={this.togglePassword} /> Voir
                   le Mot de Passe
+                </div>
+                <div
+                  className="alert alert-danger"
+                  style={{ display: "none" }}
+                  id="passworderror"
+                  role="alert"
+                >
+                  <i className="fa fa-times" aria-hidden="true"></i> Mot de
+                  Passe Non Valide
                 </div>
               </div>
               <div className="col">
